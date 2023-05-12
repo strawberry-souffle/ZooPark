@@ -81,3 +81,7 @@ for i in range(0, len(s)):
 if len(s[k:]) > len(longestStr):
     longestStr = s[k:]
 print(len(longestStr))
+
+import random
+grid = [[random.randint(0,1) for _ in range(20)] for _ in range(20)]
+print(grid)
