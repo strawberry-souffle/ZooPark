@@ -1,4 +1,4 @@
-def combinationSumUnique(candidates: list[int], target: int) -> list[list[int]]:
+def combinationSum2(candidates: list[int], target: int) -> list[list[int]]:
     output = []
     n = len(candidates)
     candidates.sort()
@@ -21,7 +21,7 @@ def combinationSumUnique(candidates: list[int], target: int) -> list[list[int]]:
     return output
 
 # now that's smarter, and faster
-def combinationSumUnique_alt(candidates: list[int], target: int) -> list[list[int]]:
+def combinationSum2_alt(candidates: list[int], target: int) -> list[list[int]]:
     output = []
     elements = []
     dict = {}
@@ -49,4 +49,29 @@ def combinationSumUnique_alt(candidates: list[int], target: int) -> list[list[in
     dfs([], 0, target)
     return output
 
-print(combinationSumUnique_alt([10,1,2,7,6,1,5], 8))
+# idk who claims previous one to be smart. This one is cleaner and faster. Works similar to Subsets2
+def combinationSum2_altalt(candidates: list[int], target: int) -> list[list[int]]:
+    candidates.sort()
+    n = len(candidates)
+    output = []
+
+    def dfs(arr: list[int], index, target):
+        nonlocal output
+        if target == 0:
+            output.append(arr.copy())
+            return
+        if target < 0:
+            return
+        for i in range(index, n):
+            if candidates[i] > target:
+                break
+            if candidates[i] == candidates[i - 1] and i > index:
+                continue
+            arr.append(candidates[i])
+            dfs(arr, i + 1, target - candidates[i])
+            arr.pop()
+
+    dfs([], 0, target)
+    return output
+
+print(combinationSum2_alt([10,1,2,7,6,1,5], 8))

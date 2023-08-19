@@ -1,4 +1,5 @@
 import math
+import bisect
 # classic brute-force-like DP, O(n^2)
 def lengthOfLIS(nums: list[int]) -> int:
 
@@ -20,33 +21,14 @@ def lengthOfLIS(nums: list[int]) -> int:
 # Encountering a new element we look into where we can insert it. Changing value of tails[i] does not affect properties of tails[i + 1]
 # O(nlog(n))
 def lengthOfLIS_alt(nums: list[int]) -> int:
-    def binarySearchM(arr, target):
-        def binaryRec(start, end):
-            if start == end:
-                return start
-            m = (start + end) // 2
-            if arr[m] == target:
-                return m
-            if target > arr[m]:
-                return binaryRec(m + 1, end)
-            else:
-                return binaryRec(start, m)
-
-        if arr[0] >= target:
-            return 0
-        if arr[-1] < target:
-            return -1
-        else:
-            return binaryRec(0, len(arr) - 1)
-
-    n = len(nums)
     tails = [nums[0]]
     for i in nums:
-        ind = binarySearchM(tails, i)
-        if ind == -1:
+        indexToSubstitute = bisect.bisect_left(tails, i)
+        if indexToSubstitute >= len(tails):
             tails.append(i)
         else:
-            tails[ind] = i
+            tails[indexToSubstitute] = i
     return len(tails)
 
-print(lengthOfLIS_alt([10,9,2,5,3,7,101,18]))
+# print(lengthOfLIS_alt([10,9,2,5,3,7,101,18]))
+print(bisect.bisect_left([0,1,3,5], 3))

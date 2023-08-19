@@ -1,5 +1,5 @@
 # Not so obvious, the common i,j brute force doesn't work
-def twoSum(self, nums: list[int], target: int) -> list[int]:
+def twoSum(nums: list[int], target: int) -> list[int]:
     prevMap = {}  # val -> index
 
     for i, n in enumerate(nums):
